@@ -47,6 +47,9 @@ Calculator::~Calculator()
 
 void Calculator::NumPressed()
 {
+    // Clear previous
+    ui->display->clear();
+
     QPushButton *btn = (QPushButton *)sender();
     QString btnValue = btn->text();
     QString displayValue = ui->display->text();
