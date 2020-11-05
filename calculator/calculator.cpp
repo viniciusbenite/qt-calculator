@@ -86,3 +86,30 @@ void Calculator::MathButtonPressed()
     // After an operation, we can clear our display (new number)
     ui->display->setText("");
 }
+
+void Calculator::EqualButton()
+{
+    double result = 0.0;
+
+    QString currentvalue = ui->display->text();
+    double doubleCurrentValue = currentvalue.toDouble();
+
+    if (divTrigger || multiTrigger || addTrigger || subTrigger)
+    {
+        if (divTrigger)
+        {
+            result = calcValue / doubleCurrentValue;
+        } else if (multiTrigger)
+        {
+            result = doubleCurrentValue * calcValue;
+        } else if (addTrigger)
+        {
+            result = doubleCurrentValue + calcValue;
+        } else
+        {
+            result = calcValue - doubleCurrentValue;
+        }
+    }
+
+    ui->display->setText(QString::number(result));
+}
