@@ -29,7 +29,7 @@ Calculator::Calculator(QWidget *parent)
         connect(numButtons[i], SIGNAL(released()), this, SLOT(NumPressed()));
     }
 
-    // Signals
+    // Operation signals
     connect(ui->btnSum, SIGNAL(released()), this, SLOT(MathButtonPressed()));
     connect(ui->btnSubtraction, SIGNAL(released()), this, SLOT(MathButtonPressed()));
     connect(ui->btnDivide, SIGNAL(released()), this, SLOT(MathButtonPressed()));
@@ -37,6 +37,8 @@ Calculator::Calculator(QWidget *parent)
 
     connect(ui->btnEquals, SIGNAL(released()), this, SLOT(EqualButton()));
     connect(ui->btnChangeSignal, SIGNAL(released()), this, SLOT(ChangeNumberSign()));
+
+    connect(ui->btnErase, SIGNAL(released()), this, SLOT(ClearSign()));
 }
 
 // Deconstructor
@@ -138,4 +140,10 @@ void Calculator::ChangeNumberSign()
         double doubleCurrentDisplaySign = (-1) * doubleCurrentDisplay;
         ui->display->setText(QString::number(doubleCurrentDisplaySign));
     }
+}
+
+void Calculator::ClearSign()
+{
+    ui->display->clear();
+    ui->display->setText(QString::number(0));
 }
