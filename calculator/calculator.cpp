@@ -8,6 +8,7 @@ bool divTrigger = false;
 bool multiTrigger = false;
 bool addTrigger = false;
 bool subTrigger = false;
+bool backSpaceTrigger = false;
 
 // flag to reset display or continue to make operations on the result
 bool displayFlag = false;
@@ -49,6 +50,9 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->btnAddMemory, SIGNAL(released()), this, SLOT(AddToMemory()));
     connect(ui->btnRemoveMemory, SIGNAL(released()), this, SLOT(RemoveFromMemory()));
     connect(ui->btnRetrieveMemory, SIGNAL(released()), this, SLOT(DisplayMemory()));
+
+    connect(ui->btnBackspace, SIGNAL(released()), this, SLOT(Backspace()));
+
 }
 
 // Deconstructor
@@ -77,6 +81,19 @@ void Calculator::NumPressed()
         QString newValue = displayValue + btnValue;
         double doubleNewValue = newValue.toDouble();
         ui->display->setText(QString::number(doubleNewValue, 'g', 16));
+    }
+}
+
+void Calculator::Backspace()
+{
+    QString currentValue = ui->display->text();
+    currentValue.chop(1); // remove last
+    if (currentValue.length() == 0)
+    {
+        ui->display->setText("0");
+    } else
+    {
+        ui->display->setText(currentValue);
     }
 }
 

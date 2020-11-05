@@ -3,8 +3,6 @@
 
 #include <QMainWindow>
 
-#include "ui_calculator.h"
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class Calculator; }
 QT_END_NAMESPACE
@@ -23,9 +21,14 @@ private:
 
 // Slots are executed when a signal is submited
 private slots:
-    void numPressed();
-    void mathButtonPressed();
-    void equalButton();
-    void changeNumberSign();
+    void NumPressed();
+    void MathButtonPressed();
+    void EqualButton();
+    void ChangeNumberSign();
+    void ClearSign();
+    void AddToMemory();
+    void RemoveFromMemory();
+    void DisplayMemory();
+    void Backspace();
 };
 #endif // CALCULATOR_H
