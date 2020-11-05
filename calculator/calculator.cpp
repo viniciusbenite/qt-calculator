@@ -12,6 +12,9 @@ bool subTrigger = false;
 // flag to reset display or continue to make operations on the result
 bool displayFlag = false;
 
+// Memory vars
+double storedValue = 0.0;
+
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Calculator)
@@ -42,6 +45,10 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->btnChangeSignal, SIGNAL(released()), this, SLOT(ChangeNumberSign()));
 
     connect(ui->btnErase, SIGNAL(released()), this, SLOT(ClearSign()));
+
+    connect(ui->btnAddMemory, SIGNAL(released()), this, SLOT(AddToMemory()));
+    connect(ui->btnRemoveMemory, SIGNAL(released()), this, SLOT(RemoveFromMemory()));
+    connect(ui->btnRetrieveMemory, SIGNAL(released()), this, SLOT(DisplayMemory()));
 }
 
 // Deconstructor
@@ -159,4 +166,20 @@ void Calculator::ClearSign()
 {
     ui->display->clear();
     ui->display->setText(QString::number(0));
+}
+
+void Calculator::AddToMemory()
+{
+    QString currentValue = ui->display->text();
+    storedValue = currentValue.toDouble();
+}
+
+void Calculator::RemoveFromMemory()
+{
+    storedValue = 0.0;
+}
+
+void Calculator::DisplayMemory()
+{
+    ui->display->setText(QString::number(storedValue));
 }
