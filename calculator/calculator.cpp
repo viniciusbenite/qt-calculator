@@ -28,6 +28,15 @@ Calculator::Calculator(QWidget *parent)
         // When the btn is released, the slot function NumPressed() is called
         connect(numButtons[i], SIGNAL(released()), this, SLOT(NumPressed()));
     }
+
+    // Signals
+    connect(ui->btnSum, SIGNAL(released()), this, SLOT(MathButtonPressed()));
+    connect(ui->btnSubtraction, SIGNAL(released()), this, SLOT(MathButtonPressed()));
+    connect(ui->btnDivide, SIGNAL(released()), this, SLOT(MathButtonPressed()));
+    connect(ui->btnMultiply, SIGNAL(released()), this, SLOT(MathButtonPressed()));
+
+    connect(ui->btnEquals, SIGNAL(released()), this, SLOT(EqualButton()));
+    connect(ui->btnChangeSignal, SIGNAL(released()), this, SLOT(ChangeNumberSign()));
 }
 
 // Deconstructor
@@ -84,7 +93,7 @@ void Calculator::MathButtonPressed()
     }
 
     // After an operation, we can clear our display (new number)
-    ui->display->setText("");
+    ui->display->setText(QString::number(calcValue) + " " + btnValue);
 }
 
 void Calculator::EqualButton()
