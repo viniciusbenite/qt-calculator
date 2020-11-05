@@ -113,3 +113,17 @@ void Calculator::EqualButton()
 
     ui->display->setText(QString::number(result));
 }
+
+void Calculator::ChangeNumberSign()
+{
+    QString currentDisplay = ui->display->text();
+
+    QRegExp reg("[-]?[0-9.]*");
+
+    if (reg.exactMatch(currentDisplay))
+    {
+        double doubleCurrentDisplay = currentDisplay.toDouble();
+        double doubleCurrentDisplaySign = (-1) * doubleCurrentDisplay;
+        ui->display->setText(QString::number(doubleCurrentDisplaySign));
+    }
+}
