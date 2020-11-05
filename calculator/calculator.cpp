@@ -9,6 +9,9 @@ bool multiTrigger = false;
 bool addTrigger = false;
 bool subTrigger = false;
 
+// flag to reset display or continue to make operations on the result
+bool displayFlag = false;
+
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Calculator)
@@ -49,8 +52,11 @@ Calculator::~Calculator()
 
 void Calculator::NumPressed()
 {
-    // Clear previous
-    ui->display->clear();
+    if (displayFlag)
+    {
+        ui->display->clear();
+        displayFlag = false;
+    }
 
     QPushButton *btn = (QPushButton *)sender();
     QString btnValue = btn->text();
@@ -106,6 +112,8 @@ void Calculator::EqualButton()
     double result = 0.0;
 
     QString currentvalue = ui->display->text();
+    QPushButton *btn = (QPushButton *)sender();
+    QString btnValue = btn->text();
     double doubleCurrentValue = currentvalue.toDouble();
 
     if (divTrigger || multiTrigger || addTrigger || subTrigger)
@@ -129,6 +137,8 @@ void Calculator::EqualButton()
     }
 
     ui->display->setText(QString::number(result));
+
+    displayFlag = true;
 }
 
 void Calculator::ChangeNumberSign()
