@@ -119,10 +119,13 @@ void Calculator::EqualButton()
         } else if (addTrigger)
         {
             result = doubleCurrentValue + calcValue;
-        } else
+        } else if (subTrigger)
         {
             result = calcValue - doubleCurrentValue;
         }
+    } else
+    {
+        result = doubleCurrentValue;
     }
 
     ui->display->setText(QString::number(result));
