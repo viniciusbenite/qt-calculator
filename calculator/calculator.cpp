@@ -41,6 +41,7 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->btnSubtraction, SIGNAL(released()), this, SLOT(MathButtonPressed()));
     connect(ui->btnDivide, SIGNAL(released()), this, SLOT(MathButtonPressed()));
     connect(ui->btnMultiply, SIGNAL(released()), this, SLOT(MathButtonPressed()));
+    connect(ui->btnSquare, SIGNAL(released()), this, SLOT(PowerOperation()));
 
     connect(ui->btnEquals, SIGNAL(released()), this, SLOT(EqualButton()));
     connect(ui->btnChangeSignal, SIGNAL(released()), this, SLOT(ChangeNumberSign()));
@@ -122,13 +123,13 @@ void Calculator::MathButtonPressed()
     {
         addTrigger = true;
     }
-    else
+    else if (QString::compare(btnValue, "-", Qt::CaseInsensitive) == 0)
     {
         subTrigger = true;
     }
 
     // After an operation, we can clear our display (new number)
-    ui->display->setText(QString::number(calcValue) + " " + btnValue);
+    ui->display->setText(QString::number(calcValue));
 }
 
 void Calculator::EqualButton()
@@ -199,4 +200,13 @@ void Calculator::RemoveFromMemory()
 void Calculator::DisplayMemory()
 {
     ui->display->setText(QString::number(storedValue));
+}
+
+void Calculator::PowerOperation()
+{
+    QString currentValue = ui->display->text();
+    double result = currentValue.toDouble() * currentValue.toDouble();
+    ui->display->setText(QString::number(result));
+
+    displayFlag = true;
 }

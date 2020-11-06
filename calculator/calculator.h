@@ -30,5 +30,6 @@ private slots:
     void RemoveFromMemory();
     void DisplayMemory();
     void Backspace();
+    void PowerOperation();
 };
 #endif // CALCULATOR_H
