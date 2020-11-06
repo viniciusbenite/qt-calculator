@@ -24,6 +24,7 @@ Calculator::Calculator(QWidget *parent)
 {
     // Create the UI (Display)
     ui->setupUi(this);
+    qDebug() << "CALCULATOR INITIATED";
 
     // The default value of display: 0.0
     ui->display->setText(QString::number(calcValue));
@@ -58,6 +59,8 @@ Calculator::Calculator(QWidget *parent)
 
     connect(ui->btnBackspace, SIGNAL(released()), this, SLOT(Backspace()));
 
+    connect(ui->btnDot, SIGNAL(released()), this, SLOT(NumPressed()));
+
 }
 
 // Deconstructor
@@ -78,14 +81,29 @@ void Calculator::NumPressed()
     QString btnValue = btn->text();
     QString displayValue = ui->display->text();
 
+    qDebug() << "Number pressed" << btnValue;
     if ((displayValue.toDouble() == 0) || (displayValue.toDouble() == 0.0))
     {
         ui->display->setText(btnValue);
-    } else
+    }
+    else if (QString::compare(btnValue, ".", Qt::CaseInsensitive) == 0)
+    {
+        qDebug() << "IT WAS A DOT" << btnValue;
+        QString newValue = displayValue + btnValue;
+        ui->display->setText(newValue);
+    }
+    else
     {
         QString newValue = displayValue + btnValue;
         double doubleNewValue = newValue.toDouble();
         ui->display->setText(QString::number(doubleNewValue, 'g', 16));
+    }
+    if (QString::compare(displayValue, ".", Qt::CaseInsensitive) == 0)
+    {
+        qDebug() << "DISPLAY HAS A DOT" << displayValue;
+        QString newValue = "0" + displayValue + btnValue;
+        //double doubleNewValue = newValue.toDouble();
+        ui->display->setText(newValue);
     }
 }
 
