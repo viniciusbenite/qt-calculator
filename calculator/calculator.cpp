@@ -133,7 +133,7 @@ void Calculator::MathButtonPressed()
     }
 
     // After an operation, we can clear our display (new number)
-    ui->display->setText(QString::number(calcValue));
+    ui->display->setText(QString::number(calcValue) + " " + btnValue);;
 }
 
 void Calculator::EqualButton()
