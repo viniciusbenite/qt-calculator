@@ -1,6 +1,8 @@
 #include "calculator.h"
 #include "ui_calculator.h"
 
+#include <math.h>
+
 double calcValue = 0.0;
 
 // Booleans to store triggers to math op's
@@ -42,6 +44,8 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->btnDivide, SIGNAL(released()), this, SLOT(MathButtonPressed()));
     connect(ui->btnMultiply, SIGNAL(released()), this, SLOT(MathButtonPressed()));
     connect(ui->btnSquare, SIGNAL(released()), this, SLOT(PowerOperation()));
+    connect(ui->btnSquareRoot, SIGNAL(released()), this, SLOT(SqrtOperation()));
+    connect(ui->btnInverse, SIGNAL(released()), this, SLOT(Inverse()));
 
     connect(ui->btnEquals, SIGNAL(released()), this, SLOT(EqualButton()));
     connect(ui->btnChangeSignal, SIGNAL(released()), this, SLOT(ChangeNumberSign()));
@@ -206,6 +210,24 @@ void Calculator::PowerOperation()
 {
     QString currentValue = ui->display->text();
     double result = currentValue.toDouble() * currentValue.toDouble();
+    ui->display->setText(QString::number(result));
+
+    displayFlag = true;
+}
+
+void Calculator::SqrtOperation()
+{
+    QString currentValue = ui->display->text();
+    double result = sqrt(currentValue.toDouble());
+    ui->display->setText(QString::number(result));
+
+    displayFlag = true;
+}
+
+void Calculator::Inverse()
+{
+    QString currentValue = ui->display->text();
+    double result = 1 / currentValue.toDouble();
     ui->display->setText(QString::number(result));
 
     displayFlag = true;

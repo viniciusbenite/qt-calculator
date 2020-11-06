@@ -31,5 +31,7 @@ private slots:
     void DisplayMemory();
     void Backspace();
     void PowerOperation();
+    void SqrtOperation();
+    void Inverse();
 };
 #endif // CALCULATOR_H
