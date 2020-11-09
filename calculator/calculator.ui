@@ -150,34 +150,6 @@ QPushButton:pressed {
       </property>
      </widget>
     </item>
-    <item row="0" column="0" colspan="5">
-     <widget class="QLineEdit" name="display">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>21</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {
-	background-color: gray;
-	border: 1px solid grat;
-	color: #ffffff
-}</string>
-      </property>
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="1">
      <widget class="QPushButton" name="btn5">
       <property name="sizePolicy">
@@ -518,6 +490,41 @@ QPushButton:pressed {
       </property>
       <property name="text">
        <string>Clear</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" colspan="4">
+     <widget class="QLineEdit" name="display">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>21</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	background-color: gray;
+	border: 1px solid grat;
+	color: #ffffff
+}</string>
+      </property>
+      <property name="text">
+       <string>0.0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="btnMode">
+      <property name="text">
+       <string>Mode</string>
       </property>
      </widget>
     </item>
