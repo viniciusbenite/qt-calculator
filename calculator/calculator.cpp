@@ -1,6 +1,8 @@
 #include "calculator.h"
 #include "ui_calculator.h"
 
+#include "cientificcalculator.h"
+
 #include <math.h>
 
 double calcValue = 0.0;
@@ -60,6 +62,8 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->btnBackspace, SIGNAL(released()), this, SLOT(Backspace()));
 
     connect(ui->btnDot, SIGNAL(released()), this, SLOT(NumPressed()));
+
+    connect(ui->btnMode, SIGNAL(released()), this, SLOT(ChangeMode()));
 
 }
 
@@ -249,4 +253,10 @@ void Calculator::Inverse()
     ui->display->setText(QString::number(result));
 
     displayFlag = true;
+}
+
+void Calculator::ChangeMode()
+{
+    cientificCalculator->show();
+    this->close();
 }
