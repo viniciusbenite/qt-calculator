@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QDebug>
 
-#include <cientificcalculator.h>
+#include <scientificcalculator.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Calculator; }
@@ -18,7 +18,8 @@ class Calculator : public QMainWindow
 public:
     Calculator(QWidget *parent = 0);
     ~Calculator();
-    CientificCalculator *cientificCalculator = new CientificCalculator();
+
+    ScientificCalculator *scientificCalculator = new ScientificCalculator();
 
 private:
     Ui::Calculator *ui;

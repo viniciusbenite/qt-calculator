@@ -10,16 +10,16 @@ CONFIG += c++11
 
 SOURCES += \
     calculator.cpp \
-    cientificcalculator.cpp \
-    main.cpp
+    main.cpp \
+    scientificcalculator.cpp
 
 HEADERS += \
     calculator.h \
-    cientificcalculator.h
+    scientificcalculator.h
 
 FORMS += \
-    calculator.ui \
-    cientific_calculator.ui
+    Scientific_calculator.ui \
+    calculator.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

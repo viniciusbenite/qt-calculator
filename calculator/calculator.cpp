@@ -1,7 +1,7 @@
 #include "calculator.h"
 #include "ui_calculator.h"
 
-#include "cientificcalculator.h"
+#include "scientificcalculator.h"
 
 #include <math.h>
 
@@ -257,6 +257,6 @@ void Calculator::Inverse()
 
 void Calculator::ChangeMode()
 {
-    cientificCalculator->show();
+    scientificCalculator->show();
     this->close();
 }
