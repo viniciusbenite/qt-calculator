@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QDebug>
 
+#include <cientificcalculator.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Calculator; }
 QT_END_NAMESPACE
@@ -16,6 +18,7 @@ class Calculator : public QMainWindow
 public:
     Calculator(QWidget *parent = 0);
     ~Calculator();
+    CientificCalculator *cientificCalculator = new CientificCalculator();
 
 private:
     Ui::Calculator *ui;
@@ -34,5 +37,6 @@ private slots:
     void PowerOperation();
     void SqrtOperation();
     void Inverse();
+    void ChangeMode();
 };
 #endif // CALCULATOR_H
