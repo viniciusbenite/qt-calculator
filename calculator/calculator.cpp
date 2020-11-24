@@ -1,6 +1,8 @@
 #include "calculator.h"
 #include "ui_calculator.h"
 
+#include <math.h>
+
 double calcValue = 0.0;
 
 // Booleans to store triggers to math op's
@@ -22,6 +24,7 @@ Calculator::Calculator(QWidget *parent)
 {
     // Create the UI (Display)
     ui->setupUi(this);
+    qDebug() << "CALCULATOR INITIATED";
 
     // The default value of display: 0.0
     ui->display->setText(QString::number(calcValue));
@@ -40,6 +43,9 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->btnSubtraction, SIGNAL(released()), this, SLOT(MathButtonPressed()));
     connect(ui->btnDivide, SIGNAL(released()), this, SLOT(MathButtonPressed()));
     connect(ui->btnMultiply, SIGNAL(released()), this, SLOT(MathButtonPressed()));
+    connect(ui->btnSquare, SIGNAL(released()), this, SLOT(PowerOperation()));
+    connect(ui->btnSquareRoot, SIGNAL(released()), this, SLOT(SqrtOperation()));
+    connect(ui->btnInverse, SIGNAL(released()), this, SLOT(Inverse()));
 
     connect(ui->btnEquals, SIGNAL(released()), this, SLOT(EqualButton()));
     connect(ui->btnChangeSignal, SIGNAL(released()), this, SLOT(ChangeNumberSign()));
@@ -51,6 +57,8 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->btnRetrieveMemory, SIGNAL(released()), this, SLOT(DisplayMemory()));
 
     connect(ui->btnBackspace, SIGNAL(released()), this, SLOT(Backspace()));
+
+    connect(ui->btnDot, SIGNAL(released()), this, SLOT(NumPressed()));
 
 }
 
@@ -72,14 +80,29 @@ void Calculator::NumPressed()
     QString btnValue = btn->text();
     QString displayValue = ui->display->text();
 
+    qDebug() << "Number pressed" << btnValue;
     if ((displayValue.toDouble() == 0.0))
     {
         ui->display->setText(btnValue);
-    } else
+    }
+    else if (QString::compare(btnValue, ".", Qt::CaseInsensitive) == 0)
+    {
+        qDebug() << "IT WAS A DOT" << btnValue;
+        QString newValue = displayValue + btnValue;
+        ui->display->setText(newValue);
+    }
+    else
     {
         QString newValue = displayValue + btnValue;
         double doubleNewValue = newValue.toDouble();
         ui->display->setText(QString::number(doubleNewValue, 'g', 16));
+    }
+    if (QString::compare(displayValue, ".", Qt::CaseInsensitive) == 0)
+    {
+        qDebug() << "DISPLAY HAS A DOT" << displayValue;
+        QString newValue = "0" + displayValue + btnValue;
+        //double doubleNewValue = newValue.toDouble();
+        ui->display->setText(newValue);
     }
 }
 
@@ -121,13 +144,13 @@ void Calculator::MathButtonPressed()
     {
         addTrigger = true;
     }
-    else
+    else if (QString::compare(btnValue, "-", Qt::CaseInsensitive) == 0)
     {
         subTrigger = true;
     }
 
     // After an operation, we can clear our display (new number)
-    ui->display->setText(QString::number(calcValue) + " " + btnValue);
+    ui->display->setText(QString::number(calcValue) + " " + btnValue);;
 }
 
 void Calculator::EqualButton()
@@ -196,4 +219,31 @@ void Calculator::RemoveFromMemory()
 void Calculator::DisplayMemory()
 {
     ui->display->setText(QString::number(storedValue));
+}
+
+void Calculator::PowerOperation()
+{
+    QString currentValue = ui->display->text();
+    double result = currentValue.toDouble() * currentValue.toDouble();
+    ui->display->setText(QString::number(result));
+
+    displayFlag = true;
+}
+
+void Calculator::SqrtOperation()
+{
+    QString currentValue = ui->display->text();
+    double result = sqrt(currentValue.toDouble());
+    ui->display->setText(QString::number(result));
+
+    displayFlag = true;
+}
+
+void Calculator::Inverse()
+{
+    QString currentValue = ui->display->text();
+    double result = 1 / currentValue.toDouble();
+    ui->display->setText(QString::number(result));
+
+    displayFlag = true;
 }

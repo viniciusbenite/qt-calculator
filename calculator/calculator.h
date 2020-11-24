@@ -2,6 +2,7 @@
 #define CALCULATOR_H
 
 #include <QMainWindow>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Calculator; }
@@ -30,5 +31,8 @@ private slots:
     void RemoveFromMemory();
     void DisplayMemory();
     void Backspace();
+    void PowerOperation();
+    void SqrtOperation();
+    void Inverse();
 };
 #endif // CALCULATOR_H
