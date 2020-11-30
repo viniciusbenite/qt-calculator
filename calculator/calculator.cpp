@@ -12,6 +12,7 @@ bool divTrigger = false;
 bool multiTrigger = false;
 bool addTrigger = false;
 bool subTrigger = false;
+bool powTrigger = false;
 bool backSpaceTrigger = false;
 
 // flag to reset display or continue to make operations on the result
@@ -48,6 +49,9 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->btnSquare, SIGNAL(released()), this, SLOT(PowerOperation()));
     connect(ui->btnSquareRoot, SIGNAL(released()), this, SLOT(SqrtOperation()));
     connect(ui->btnInverse, SIGNAL(released()), this, SLOT(Inverse()));
+    connect(ui->btnLog, SIGNAL(released()), this, SLOT(LogOperation()));
+    connect(ui->btnLog10, SIGNAL(released()), this, SLOT(LnOperation()));
+    connect(ui->btnFactorial, SIGNAL(released()), this, SLOT(FactorialOperation(calcValue)));
 
     connect(ui->btnEquals, SIGNAL(released()), this, SLOT(EqualButton()));
     connect(ui->btnChangeSignal, SIGNAL(released()), this, SLOT(ChangeNumberSign()));
@@ -152,6 +156,10 @@ void Calculator::MathButtonPressed()
     {
         subTrigger = true;
     }
+    else if(QString::compare(btnValue, "x^y", Qt::CaseInsensitive) == 0)
+    {
+        powTrigger = true;
+    }
 
     // After an operation, we can clear our display (new number)
     ui->display->setText(QString::number(calcValue) + " " + btnValue);;
@@ -183,6 +191,10 @@ void Calculator::EqualButton()
         else if (subTrigger)
         {
             result = calcValue - doubleCurrentValue;
+        }
+        else if (powTrigger)
+        {
+            result = pow(calcValue, doubleCurrentValue);
         }
     }
     else
