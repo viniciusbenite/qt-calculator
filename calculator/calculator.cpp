@@ -32,7 +32,6 @@ Calculator::Calculator(QWidget *parent)
     ui->display->setText(QString::number(calcValue));
 
     QPushButton *numButtons[10]; // Numbers 0 to 9
-
     for (int i = 0; i < 10; i++) {
         QString btnName = "btn" + QString::number(i);
         numButtons[i] = Calculator::findChild<QPushButton *>(btnName); // Cast to QPushButton
@@ -86,7 +85,7 @@ void Calculator::NumPressed()
     QString displayValue = ui->display->text();
 
     qDebug() << "Number pressed" << btnValue;
-    if ((displayValue.toDouble() == 0) || (displayValue.toDouble() == 0.0))
+    if ((displayValue.toDouble() == 0.0))
     {
         ui->display->setText(btnValue);
     }
@@ -172,17 +171,21 @@ void Calculator::EqualButton()
         if (divTrigger)
         {
             result = calcValue / doubleCurrentValue;
-        } else if (multiTrigger)
+        }
+        else if (multiTrigger)
         {
             result = doubleCurrentValue * calcValue;
-        } else if (addTrigger)
+        }
+        else if (addTrigger)
         {
             result = doubleCurrentValue + calcValue;
-        } else if (subTrigger)
+        }
+        else if (subTrigger)
         {
             result = calcValue - doubleCurrentValue;
         }
-    } else
+    }
+    else
     {
         result = doubleCurrentValue;
     }
@@ -195,15 +198,9 @@ void Calculator::EqualButton()
 void Calculator::ChangeNumberSign()
 {
     QString currentDisplay = ui->display->text();
-
-    QRegExp reg("[-]?[0-9.]*");
-
-    if (reg.exactMatch(currentDisplay))
-    {
-        double doubleCurrentDisplay = currentDisplay.toDouble();
-        double doubleCurrentDisplaySign = (-1) * doubleCurrentDisplay;
-        ui->display->setText(QString::number(doubleCurrentDisplaySign));
-    }
+    double doubleCurrentDisplay = currentDisplay.toDouble();
+    double doubleCurrentDisplaySign = (-1) * doubleCurrentDisplay;
+    ui->display->setText(QString::number(doubleCurrentDisplaySign));
 }
 
 void Calculator::ClearSign()
