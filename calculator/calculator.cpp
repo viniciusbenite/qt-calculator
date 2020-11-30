@@ -252,8 +252,53 @@ void Calculator::Inverse()
     displayFlag = true;
 }
 
+void Calculator::LogOperation()
+{
+    QString currentValue = ui->display->text();
+    double result = log(currentValue.toDouble());
+    ui->display->setText(QString::number(result));
+
+    displayFlag = true;
+}
+
+void Calculator::LnOperation()
+{
+    QString currentValue = ui->display->text();
+    double result = log10(currentValue.toDouble());
+    ui->display->setText(QString::number(result));
+
+    displayFlag = true;
+}
+
+double Calculator::FactorialOperation(double n)
+{
+    n = ui->display->text().toDouble();
+    double result;
+
+    if (n <= 1.0)
+    {
+        result = 1;
+    }
+    else
+    {
+        result = n * FactorialOperation(n - 1);
+    }
+
+    ui->display->setText(QString::number(result));
+    displayFlag = true;
+
+    return 0.0;
+}
+
 void Calculator::ChangeMode()
 {
-    scientificCalculator->show();
-    this->close();
+    qDebug() << "Mode changed to " << mode;
+    if (mode == 0)
+    {
+        mode = 1;
+    }
+    else
+    {
+        mode = 0;
+    }
 }
