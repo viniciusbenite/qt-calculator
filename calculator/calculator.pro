@@ -10,15 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     calculator.cpp \
-    main.cpp \
-    scientificcalculator.cpp
+    main.cpp
 
 HEADERS += \
-    calculator.h \
-    scientificcalculator.h
+    calculator.h
 
 FORMS += \
-    Scientific_calculator.ui \
     calculator.ui
 
 # Default rules for deployment.
