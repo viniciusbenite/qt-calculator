@@ -1,8 +1,6 @@
 #include "calculator.h"
 #include "ui_calculator.h"
 
-#include "scientificcalculator.h"
-
 #include <math.h>
 
 double calcValue = 0.0;
@@ -21,6 +19,11 @@ bool displayFlag = false;
 // Memory vars
 double storedValue = 0.0;
 
+//   Calculator mode
+//   0 -> normal
+//   1 -> scifi
+int mode = 0;
+
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Calculator)
@@ -28,6 +31,14 @@ Calculator::Calculator(QWidget *parent)
     // Create the UI (Display)
     ui->setupUi(this);
     qDebug() << "CALCULATOR INITIATED";
+
+    if (mode == 0)
+    {
+        ui->btnLog->setVisible(0);
+        ui->btnLog10->setVisible(0);
+        ui->btnPow->setVisible(0);
+        ui->btnFactorial->setVisible(0);
+    }
 
     // The default value of display: 0.0
     ui->display->setText(QString::number(calcValue));
@@ -66,7 +77,17 @@ Calculator::Calculator(QWidget *parent)
 
     connect(ui->btnDot, SIGNAL(released()), this, SLOT(NumPressed()));
 
-    connect(ui->btnMode, SIGNAL(released()), this, SLOT(ChangeMode()));
+    if (mode == 0)
+    {
+        connect(ui->btnMode, SIGNAL(released()), this, SLOT(on_btnMode_clicked(1)));
+        mode = 1;
+    }
+    else
+    {
+        connect(ui->btnMode, SIGNAL(released()), this, SLOT(on_btnMode_clicked(0)));
+        mode = 0;
+    }
+
 
 }
 
@@ -74,6 +95,15 @@ Calculator::Calculator(QWidget *parent)
 Calculator::~Calculator()
 {
     delete ui;
+}
+
+void Calculator::on_btnMode_clicked(int value)
+{
+    qDebug() << "BTN MODE CLICKED";
+    ui->btnLog->setVisible(value);
+    ui->btnLog10->setVisible(value);
+    ui->btnPow->setVisible(value);
+    ui->btnFactorial->setVisible(value);
 }
 
 void Calculator::NumPressed()
